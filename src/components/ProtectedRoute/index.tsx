@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import userService from '../../api/userService';
 import UserContext from '../../contexts/UserContext';
-import { IUser } from '../../dto/base/IUser';
-import { getToken, removeToken } from '../../api/user';
+import {User} from '../../dto/base/User';
+import { getToken } from '../../api/user';
 
 const ProtectedRoute: FC<Props> = ({ children }) => {
   const access_token = getToken();
@@ -23,7 +23,7 @@ const ProtectedRoute: FC<Props> = ({ children }) => {
 
   useEffect(() => {
     if (isFetching) return;
-    const user = data as IUser;
+    const user = data as User;
 
     if (user?.id) {
       console.log('jestem tutaj');

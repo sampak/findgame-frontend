@@ -1,6 +1,6 @@
-import Avatar from '../Avatar';
-import Logo from '../../assets/games/lol.png';
-import Button from '../Button';
+// import Avatar from '../Avatar';
+// import Logo from '../../assets/games/lol.png';
+// import Button from '../Button';
 
 const DiscoveryCard = ({game}) => {
   return (

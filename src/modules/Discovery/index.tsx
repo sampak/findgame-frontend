@@ -4,7 +4,7 @@ import DiscoveryCard from '../../components/DiscoveryCard';
 import UserContext from '../../contexts/UserContext';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import steamService from '../../api/steamService';
+// import steamService from '../../api/steamService';
 import userService from '../../api/userService';
 import { User } from '../../dto/base/User';
 import gameService from '../../api/gameService';
@@ -12,7 +12,7 @@ import gameService from '../../api/gameService';
 const Discovery = () => {
   const [steamId, setSteamId] = useState('');
   const { data: games, refetch } = userService.useGetMyGames();
-  const { mutate: getSteamId } = steamService.useGetSteamId();
+  // const { mutate: getSteamId } = steamService.useGetSteamId();
   const { mutate: updateSteamId } = userService.useUpdateSteamId();
   const { mutate: getSteamGames } = gameService.useGetSteamGames();
   const { user, setUser } = useContext(UserContext);
