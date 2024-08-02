@@ -2,8 +2,8 @@ import { RouterProvider } from 'react-router-dom'
 import { router } from './router'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { useState } from 'react';
-import { User } from './dto/base/User';
-import UserContext from './contexts/UserContext';
+import { User } from '@dto/base/User';
+import UserContext from '@contexts/UserContext';
 
 const client = new QueryClient({
   defaultOptions: {

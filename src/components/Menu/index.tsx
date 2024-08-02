@@ -1,7 +1,6 @@
 import classNames from "classnames"
 import { FC, Props } from "./typings"
-//@ts-ignore
-import  CompassIcon from '../../assets/icons/compass.svg?react'
+import  CompassIcon from '@assets/icons/compass.svg?react'
 
 const Menu: FC<Props> = () => {
 

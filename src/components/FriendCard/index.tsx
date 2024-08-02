@@ -1,6 +1,6 @@
 import Avatar from "../Avatar";
-//@ts-ignore
-import MoreIcon from '../../assets/icons/more.svg?react'
+
+import MoreIcon from '@assets/icons/more.svg?react'
 
 const FriendCard = () => {
   return (

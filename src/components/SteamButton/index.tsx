@@ -1,5 +1,5 @@
-import Steam from '../../assets/icons/steam.svg?react';
-import useLang from '../../hooks/useLang';
+import Steam from '@assets/icons/steam.svg?react';
+import useLang from '@hooks/useLang';
 
 const SteamButton = () => {
   const { getLang } = useLang('socialButtons');

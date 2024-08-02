@@ -1,6 +1,6 @@
 import { useMutation } from "react-query";
 import { axiosInstance } from "./axios";
-import { IGetSteamIdDTO } from "../dto/response/IGetSteamIdDTO";
+import { IGetSteamIdDTO } from "@dto/response/IGetSteamIdDTO";
 
 // const queryKeys = {
 //   getSteamId: (value: string) => ['steamService.getSteamId', value],

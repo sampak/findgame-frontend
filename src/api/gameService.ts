@@ -1,6 +1,6 @@
 import { useMutation } from "react-query";
 import { axiosInstance } from "./axios";
-import { IGetSteamIdDTO } from "../dto/response/IGetSteamIdDTO";
+import { IGetSteamIdDTO } from "@dto/response/IGetSteamIdDTO";
 
 const getSteamGames = async (payload: { steamName: string }): Promise<IGetSteamIdDTO> => {
   const response = await axiosInstance.post(`/game/steam`, payload);

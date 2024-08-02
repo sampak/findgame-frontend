@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import Input from '../Input';
-import UserContext from '../../contexts/UserContext';
+import UserContext from '@contexts/UserContext';
 import Avatar from '../Avatar';
 
 const Topbar = () => {

@@ -1,5 +1,5 @@
 import { FC, Props } from './typings';
-import Logo from '../../assets/logo.svg?react';
+import Logo from '@assets/logo.svg?react';
 
 const AuthLayout: FC<Props> = ({ children }) => {
   return (

@@ -1,15 +1,15 @@
-import AuthLayout from '../../../components/AuthLayout';
-import Button from '../../../components/Button';
-import Input from '../../../components/Input';
-import CTAButton from '../../../components/CTAButton';
-import LoginMethods from '../../../components/LoginMethods';
+import AuthLayout from '@components/AuthLayout';
+import Button from '@components/Button';
+import Input from '@components/Input';
+import CTAButton from '@components/CTAButton';
+import LoginMethods from '@components/LoginMethods';
 import { useNavigate } from 'react-router-dom';
 import { Controller, FieldValues, useForm } from 'react-hook-form';
 import { useEffect } from 'react';
-import authService from '../../../api/authService';
-import { setToken } from '../../../api/user';
-import useLang from '../../../hooks/useLang';
-import { getApiError } from '../../../utils/getApiError';
+import authService from '@api/authService';
+import { setToken } from '@api/user';
+import useLang from '@hooks/useLang';
+import { getApiError } from '@utils/getApiError';
 
 const SignIn = () => {
   const navigate = useNavigate();

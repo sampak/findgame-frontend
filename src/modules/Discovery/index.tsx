@@ -1,13 +1,13 @@
 import { useContext, useState } from 'react';
-import AppLayout from '../../components/AppLayout';
-import DiscoveryCard from '../../components/DiscoveryCard';
-import UserContext from '../../contexts/UserContext';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
-// import steamService from '../../api/steamService';
-import userService from '../../api/userService';
-import { User } from '../../dto/base/User';
-import gameService from '../../api/gameService';
+import AppLayout from '@components/AppLayout';
+import DiscoveryCard from '@components/DiscoveryCard';
+import UserContext from '@contexts/UserContext';
+import Input from '@components/Input';
+import Button from '@components/Button';
+// import steamService from '@api/steamService';
+import userService from '@api/userService';
+import { User } from '@dto/base/User';
+import gameService from '@api/gameService';
 
 const Discovery = () => {
   const [steamId, setSteamId] = useState('');

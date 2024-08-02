@@ -1,7 +1,7 @@
 import { useMutation } from 'react-query';
 import { axiosInstance } from './axios';
-import { ISignInRequest } from '../dto/requests/ISignIn.Request';
-import { ISignUpRequest } from '../dto/requests/ISignUp.Request';
+import { ISignInRequest } from '@dto/requests/ISignIn.Request';
+import { ISignUpRequest } from '@dto/requests/ISignUp.Request';
 
 const signIn = async (payload: ISignInRequest) => {
   const response = await axiosInstance.post('/user/signin', payload);
