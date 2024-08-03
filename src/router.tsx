@@ -2,11 +2,20 @@ import { createBrowserRouter } from 'react-router-dom';
 import SignIn from './modules/auth/SignIn';
 import SignUp from './modules/auth/SignUp';
 import ProtectedRoute from './components/ProtectedRoute';
+import Library from './modules/Library';
 import Discovery from './modules/Discovery';
 
 export const router = createBrowserRouter([
   {
     path: '/',
+    element: (
+      <ProtectedRoute>
+        <Library />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/discovery',
     element: (
       <ProtectedRoute>
         <Discovery />

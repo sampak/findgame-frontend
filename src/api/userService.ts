@@ -4,6 +4,7 @@ import { axiosInstance } from './axios';
 const queryKeys = {
   getMe: 'userService.getMe',
   getGames: 'userService.getGames',
+  getDiscovery: 'userService.getDiscovery',
 };
 
 const getMe = async () => {
@@ -36,8 +37,19 @@ const useGetMyGames = () => {
   return useQuery(queryKeys.getGames, () => getMyGames())
 }
 
+const getDiscovery = async () => {
+  const response = await axiosInstance.get("/user/discovery");
+
+  return response.data ?? []
+}
+
+const useGetDiscovery = () => {
+  return useQuery(queryKeys.getDiscovery, () => getDiscovery());
+}
+
 export default {
   useGetMe,
   useUpdateSteamId,
-  useGetMyGames
+  useGetMyGames,
+  useGetDiscovery
 };

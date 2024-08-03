@@ -12,7 +12,7 @@ const Topbar = () => {
         <Input onChange={() => {}} placeholder="Search something..." value="" />
       </div>
       <div className="flex items-center gap-4 pr-10">
-        <Avatar name={user?.login ?? ''} />
+        <Avatar user={user!} />
         <div className="flex flex-col">
           <span className="font-medium text-deepNavy-500 font-bold">
             {user?.login}
