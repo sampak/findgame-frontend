@@ -35,5 +35,6 @@ export const TRANSLATIONS_EN = {
   discoveryCard: {
     score: 'Similarity score',
     add: 'Add to Friends',
+    sended: 'Invitation sended',
   },
 };

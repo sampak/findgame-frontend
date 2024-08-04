@@ -1,0 +1,5 @@
+export enum FriendStatus {
+  INVITED = 'INVITED',
+  WAITING_FOR_ACCEPT = 'WAITING_FOR_ACCEPT',
+  FRIENDS = 'FRIENDS',
+}

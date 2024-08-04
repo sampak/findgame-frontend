@@ -3,7 +3,7 @@ export const TRANSLATIONS_PL = {
     placeholderLogin: 'Wprowadź login',
     placeholderPassword: 'Wprowadź hasło',
     signInButton: 'Zaloguj się',
-    needAccountButton: 'Załóż konto teraz!',
+    needAccountButton: 'Potrzebujesz konta? Utwórz teraz!',
     orText: 'lub',
 
     errors: {
@@ -20,11 +20,20 @@ export const TRANSLATIONS_PL = {
     orText: 'lub',
 
     errors: {
-      USER_EXISTS: 'Użytkownik o tym loginie lub adresie e-mail już istnieje',
+      USER_EXISTS: 'Użytkownik o tym loginie lub e-mailu już istnieje',
     },
   },
 
   socialButtons: {
     steam: 'Zaloguj się przez Steam',
+  },
+
+  discovery: {
+    header: 'Odkrywaj',
+  },
+
+  discoveryCard: {
+    score: 'Podobieństwo',
+    add: 'Dodaj do znajomych',
   },
 };

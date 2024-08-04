@@ -4,9 +4,13 @@ import Progress from 'react-circle-progress-bar';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import useLang from '@hooks/useLang';
+import friendService from '@api/friendService';
+import { useState } from 'react';
 
 const DiscoveryCard: FC<Props> = ({ user }) => {
   const { getLang } = useLang('discoveryCard');
+  const [inviteSend, setInviteSend] = useState(false);
+  const { mutate: sendInvite } = friendService.useSendInvite();
 
   const getClass = () => {
     const score = Math.floor(user.score);
@@ -18,6 +22,20 @@ const DiscoveryCard: FC<Props> = ({ user }) => {
     if (score <= 25) {
       return styles.small;
     }
+  };
+
+  const handleSendInvite = () => {
+    sendInvite(
+      {
+        id: user.id,
+      },
+      {
+        onSuccess: () => {
+          console.log('Friend request was send');
+          setInviteSend(true);
+        },
+      }
+    );
   };
 
   return (
@@ -42,8 +60,11 @@ const DiscoveryCard: FC<Props> = ({ user }) => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center mt-2 items-center border-t-2 w-full pt-3 pb-3 hover:bg-deepNavy-50 cursor-pointer select-none">
-        {getLang('add')}
+      <div
+        onClick={handleSendInvite}
+        className="flex justify-center mt-2 items-center border-t-2 w-full pt-3 pb-3 hover:bg-deepNavy-50 cursor-pointer select-none"
+      >
+        {!inviteSend ? getLang('add') : getLang('sended')}
       </div>
     </div>
   );
