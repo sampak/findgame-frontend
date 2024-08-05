@@ -5,4 +5,5 @@ export interface IFriend {
   id: string;
   user: User;
   status: FriendStatus;
+  myInvitation: boolean;
 }

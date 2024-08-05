@@ -31,7 +31,8 @@
       "@dto/*": ["dto/*"],
       "@hooks/*": ["hooks/*"],
       "@utils/*": ["utils/*"],
-      "@api/*": ["api/*"]
+      "@api/*": ["api/*"],
+      "@reducers/*": ["reducers/*"]
     }
   },
   "include": ["src"]

@@ -17,7 +17,7 @@ const Discovery = () => {
         <div className="flex gap-4 flex-wrap">
           {isLoading && <LoadingAnimation width={200} height={200} />}
           {users?.map((user) => (
-            <DiscoveryCard user={user} />
+            <DiscoveryCard key={user.id} user={user} />
           ))}
         </div>
       </div>
