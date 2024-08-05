@@ -7,12 +7,12 @@ const Topbar = () => {
   const { user } = useContext(UserContext);
 
   return (
-    <div className="fixed flex flex-row items-center justify-between w-screen pl-40 h-16 mt-5">
+    <div className="fixed flex flex-row items-center justify-between w-screen pl-40 pr-4 h-16 mt-5">
       <div className="w-1/5">
         <Input onChange={() => {}} placeholder="Search something..." value="" />
       </div>
       <div className="flex items-center gap-4 pr-10">
-        <Avatar name={user?.login ?? ''} />
+        <Avatar user={user!} />
         <div className="flex flex-col">
           <span className="font-medium text-deepNavy-500 font-bold">
             {user?.login}

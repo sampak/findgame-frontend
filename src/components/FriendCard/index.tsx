@@ -1,22 +1,93 @@
-import Avatar from "../Avatar";
+import { FriendStatus } from '@dto/base/FriendStatus';
+import Avatar from '../Avatar';
 
-import MoreIcon from '@assets/icons/more.svg?react'
+import MoreIcon from '@assets/icons/more.svg?react';
+import AcceptIcon from '@assets/icons/check.svg?react';
+import DeclineIcon from '@assets/icons/close.svg?react';
+import friendService from '@api/friendService';
+import { useContext } from 'react';
+import FriendsContext from '@contexts/FriendsContext';
+import { FRIEND_ACTIONS } from '@reducers/friendsReducer';
 
-const FriendCard = () => {
+// hover:bg-deepNavy-100
+
+const FriendCard = ({ friend }) => {
+  const { mutate: accept } = friendService.useAccept();
+  const { mutate: decline } = friendService.useDeclineOrRemove();
+  const { dispatch } = useContext(FriendsContext);
+
+  const handleAccept = () => {
+    accept(
+      {
+        inviteId: friend.id,
+      },
+      {
+        onSuccess() {
+          dispatch({
+            type: FRIEND_ACTIONS.ACCEPT,
+            payload: {
+              id: friend.id,
+            },
+          });
+        },
+      }
+    );
+  };
+
+  const handleDecline = () => {
+    decline(
+      {
+        inviteId: friend.id,
+      },
+      {
+        onSuccess: () => {
+          dispatch({
+            type: FRIEND_ACTIONS.REMOVE,
+            payload: {
+              id: friend.id,
+            },
+          });
+        },
+      }
+    );
+  };
+
   return (
     <div className="border-b ">
-
-      <div className="w-full cursor-pointer h-[64px] hover:bg-deepNavy-100 flex justify-between rounded-md px-2">
+      <div className="w-full h-[64px] flex justify-between rounded-md px-2">
         <div className="flex gap-5 items-center">
-          <Avatar name="Sampak" />
-          <div className="font-semibold">  
-            Sampak
-          </div>
+          <Avatar user={friend.user} />
+          <div className="font-semibold">{friend.user.login}</div>
         </div>
-        <div className="flex items-center"><MoreIcon className="hover:bg-deepNavy-200 rounded-sm" /></div>
+        <div className="flex items-center">
+          {
+            <>
+              {friend.status !== FriendStatus.INVITED && (
+                <MoreIcon className="hover:bg-deepNavy-200 rounded-sm cursor-pointer" />
+              )}
+              {friend.status === FriendStatus.INVITED && (
+                <div className="flex gap-2">
+                  <div
+                    onClick={handleAccept}
+                    className="flex p-[1px] cursor-pointer border-green-400 border group rounded-full hover:bg-green-500"
+                  >
+                    <AcceptIcon className="fill-green-500 ho group group-hover:fill-white" />
+                  </div>
+
+                  <div
+                    onClick={handleDecline}
+                    className="flex p-[1px] cursor-pointer border-red-400 border group rounded-full hover:bg-red-500"
+                  >
+                    <DeclineIcon className="fill-red-500 group-hover:fill-white" />
+                  </div>
+                </div>
+              )}
+            </>
+          }
+        </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default FriendCard;

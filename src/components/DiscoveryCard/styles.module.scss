@@ -1,0 +1,26 @@
+.circleStyle {
+  circle:nth-of-type(1),
+  circle:nth-of-type(2) {
+    stroke-width: 24px;
+    background: green;
+  }
+
+  circle:nth-of-type(3) {
+    stroke-width: 24px;
+    background: green;
+  }
+}
+
+.big {
+  circle:nth-of-type(2),
+  circle:nth-of-type(3) {
+    stroke: rgb(215, 29, 29);
+  }
+}
+
+.small {
+  circle:nth-of-type(2),
+  circle:nth-of-type(3) {
+    stroke: green;
+  }
+}

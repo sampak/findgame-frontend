@@ -18,9 +18,11 @@
     "i18next-browser-languagedetector": "^8.0.0",
     "path": "^0.12.7",
     "react": "^18.3.1",
+    "react-circle-progress-bar": "^0.1.4",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.52.1",
     "react-i18next": "^15.0.0",
+    "react-lottie": "^1.2.4",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.25.1"
   },

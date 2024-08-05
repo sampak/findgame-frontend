@@ -27,4 +27,14 @@ export const TRANSLATIONS_EN = {
   socialButtons: {
     steam: 'Sign in with Steam',
   },
+
+  discovery: {
+    header: 'Discovery',
+  },
+
+  discoveryCard: {
+    score: 'Similarity score',
+    add: 'Add to Friends',
+    sended: 'Invitation sended',
+  },
 };

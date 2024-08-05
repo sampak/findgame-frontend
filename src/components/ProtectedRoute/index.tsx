@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import userService from '@api/userService';
 import UserContext from '@contexts/UserContext';
-import {User} from '@dto/base/User';
-import { getToken } from '@api/user';
+import { User } from '@dto/base/User';
+import { getToken, removeToken } from '@api/user';
+import LoadingScreen from '@components/LoadingScreen';
 
 const ProtectedRoute: FC<Props> = ({ children }) => {
   const access_token = getToken();
@@ -26,7 +27,6 @@ const ProtectedRoute: FC<Props> = ({ children }) => {
     const user = data as User;
 
     if (user?.id) {
-      console.log('jestem tutaj');
       //   if (user.uiConfiguration?.showOnbording) {
       //     navigate('/onbording/method');
       //   }
@@ -38,7 +38,7 @@ const ProtectedRoute: FC<Props> = ({ children }) => {
 
   useEffect(() => {
     if (isError) {
-      // removeToken();
+      removeToken();
     }
   }, [isError]);
 
@@ -50,7 +50,7 @@ const ProtectedRoute: FC<Props> = ({ children }) => {
   }
 
   if (showLoadingScreen) {
-    return <>Loading</>;
+    return <LoadingScreen />;
   }
 
   return children;
