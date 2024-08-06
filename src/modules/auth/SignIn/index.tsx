@@ -5,11 +5,14 @@ import CTAButton from '@components/CTAButton';
 import LoginMethods from '@components/LoginMethods';
 import { useNavigate } from 'react-router-dom';
 import { Controller, FieldValues, useForm } from 'react-hook-form';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import authService from '@api/authService';
 import { setToken } from '@api/user';
 import useLang from '@hooks/useLang';
 import { getApiError } from '@utils/getApiError';
+import steamService from '@api/steamService';
+import useWindow from '@hooks/useWindow';
+import LoadingAnimation from '@components/LoadingAnimation';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -24,11 +27,16 @@ const SignIn = () => {
   const { getLang } = useLang('signIn');
 
   const { mutate: signIn } = authService.useSignIn();
+  const { mutate: getLink } = steamService.useGetLink();
 
   const handleClickNeedAccount = () => navigate('/auth/sign-up');
 
   const loginValue = watch('login');
   const passwordValue = watch('password');
+
+  const { createWindow, isClosed } = useWindow();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSignIn = (data: FieldValues) => {
     signIn(
@@ -49,16 +57,40 @@ const SignIn = () => {
     );
   };
 
+  const SignInBySteam = () => {
+    getLink(undefined, {
+      onSuccess: (response) => {
+        setIsLoading(true);
+        createWindow(response);
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (!isClosed) return;
+    navigate('/');
+  }, [isClosed]);
+
   useEffect(() => {
     trigger();
   }, [loginValue, passwordValue, trigger]);
 
   const isError: boolean = !!errors?.login || !!errors?.password;
 
+  if (isLoading) {
+    return (
+      <AuthLayout>
+        <div className="flex items-center w-full h-full justify-center">
+          <LoadingAnimation width={200} height={200} />
+        </div>
+      </AuthLayout>
+    );
+  }
+
   return (
     <AuthLayout>
       <div className="w-full flex flex-col gap-7">
-        <LoginMethods />
+        <LoginMethods onClickSteam={SignInBySteam} />
         <div className="relative my-2 w-full inline-flex items-center justify-center w-full">
           <hr className="w-full h-px bg-deepNavy-500 border-0 absolute top-1/2 " />
           <span className="absolute px-3 font-medium -translate-x-1/2 top-1/2 bg-white -translate-y-1/2 left-1/2 text-deepNavy-500">

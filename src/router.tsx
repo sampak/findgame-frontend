@@ -4,6 +4,7 @@ import SignUp from './modules/auth/SignUp';
 import ProtectedRoute from './components/ProtectedRoute';
 import Library from './modules/Library';
 import Discovery from './modules/Discovery';
+import VerifySteam from './modules/VerifySteam';
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
         <Discovery />
       </ProtectedRoute>
     ),
+  },
+  {
+    path: '/verify',
+    element: <VerifySteam />,
   },
   {
     path: '/auth',

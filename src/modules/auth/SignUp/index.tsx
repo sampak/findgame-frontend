@@ -5,10 +5,13 @@ import CTAButton from '@components/CTAButton';
 import LoginMethods from '@components/LoginMethods';
 import { useNavigate } from 'react-router-dom';
 import { Controller, FieldValues, useForm } from 'react-hook-form';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import authService from '@api/authService';
 import { setToken } from '@api/user';
 import useLang from '@hooks/useLang';
+import useWindow from '@hooks/useWindow';
+import steamService from '@api/steamService';
+import LoadingAnimation from '@components/LoadingAnimation';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -19,6 +22,10 @@ const SignUp = () => {
     watch,
     formState: { errors },
   } = useForm();
+
+  const { createWindow, isClosed } = useWindow();
+  const { mutate: getLink } = steamService.useGetLink();
+  const [isLoading, setIsLoading] = useState(false);
 
   const { getLang } = useLang('signUp');
 
@@ -62,12 +69,36 @@ const SignUp = () => {
     );
   };
 
+  const SignUpBySteam = () => {
+    getLink(undefined, {
+      onSuccess: (response) => {
+        setIsLoading(true);
+        createWindow(response);
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (!isClosed) return;
+    navigate('/');
+  }, [isClosed]);
+
   const handleClickAccount = () => navigate('/auth/sign-in');
+
+  if (isLoading) {
+    return (
+      <AuthLayout>
+        <div className="flex items-center w-full h-full justify-center">
+          <LoadingAnimation width={200} height={200} />
+        </div>
+      </AuthLayout>
+    );
+  }
 
   return (
     <AuthLayout>
       <div className="w-full flex flex-col gap-7">
-        <LoginMethods />
+        <LoginMethods onClickSteam={SignUpBySteam} />
         <div className="relative my-2 w-full inline-flex items-center justify-center w-full">
           <hr className="w-full h-px bg-deepNavy-500 border-0 absolute top-1/2 " />
           <span className="absolute px-3 font-medium -translate-x-1/2 top-1/2 bg-white -translate-y-1/2 left-1/2 text-deepNavy-500">

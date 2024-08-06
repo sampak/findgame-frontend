@@ -21,35 +21,46 @@ const useGetMe = () => {
 };
 
 const updateSteamId = (payload: { steamId: string }) => {
-  return axiosInstance.patch("/user/steamid", payload);
-}
+  return axiosInstance.patch('/user/steamid', payload);
+};
 
 const useUpdateSteamId = () => {
   return useMutation(updateSteamId);
-}
+};
 
 const getMyGames = async () => {
-  const response = await axiosInstance.get("/user/games");
-  return response.data ?? []
-}
+  const response = await axiosInstance.get('/user/games');
+  return response.data ?? [];
+};
 
 const useGetMyGames = () => {
-  return useQuery(queryKeys.getGames, () => getMyGames())
-}
+  return useQuery(queryKeys.getGames, () => getMyGames());
+};
 
 const getDiscovery = async () => {
-  const response = await axiosInstance.get("/user/discovery");
+  const response = await axiosInstance.get('/user/discovery');
 
-  return response.data ?? []
-}
+  return response.data ?? [];
+};
 
 const useGetDiscovery = () => {
   return useQuery(queryKeys.getDiscovery, () => getDiscovery());
-}
+};
+
+const getSteamId = async () => {
+  const response = await axiosInstance.get('/user/steamid');
+
+  return response.data ?? [];
+};
+
+const useGetSteamId = () => {
+  return useMutation(getSteamId);
+};
 
 export default {
   useGetMe,
   useUpdateSteamId,
   useGetMyGames,
-  useGetDiscovery
+  useGetDiscovery,
+  useGetSteamId,
 };

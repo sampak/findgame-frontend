@@ -31,6 +31,7 @@ const ProtectedRoute: FC<Props> = ({ children }) => {
       //     navigate('/onbording/method');
       //   }
 
+      console.log('assing user');
       setUser(user);
       setLoading(false);
     }
