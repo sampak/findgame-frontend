@@ -1,47 +1,47 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import AppLayout from '@components/AppLayout';
 import UserContext from '@contexts/UserContext';
-import Input from '@components/Input';
-import Button from '@components/Button';
-// import steamService from '@api/steamService';
 import userService from '@api/userService';
 import { User } from '@dto/base/User';
-import gameService from '@api/gameService';
 import GameCard from '@components/GameCard';
+import SteamButton from '@components/SteamButton';
+import steamService from '@api/steamService';
+import useWindow from '@hooks/useWindow';
+import LoadingAnimation from '@components/LoadingAnimation';
 
 const Library = () => {
-  const [steamId, setSteamId] = useState('');
   const { data: games, refetch } = userService.useGetMyGames();
-  // const { mutate: getSteamId } = steamService.useGetSteamId();
-  const { mutate: updateSteamId } = userService.useUpdateSteamId();
-  const { mutate: getSteamGames } = gameService.useGetSteamGames();
+  const { mutate: getLink } = steamService.useGetLink();
+  const { mutate: getSteamId } = userService.useGetSteamId();
   const { user, setUser } = useContext(UserContext);
 
-  console.log(games);
+  const { createWindow, isClosed } = useWindow();
 
-  const handleSaveSteamId = () => {
-    getSteamGames(
-      {
-        steamName: steamId,
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleClickSignIn = () => {
+    setIsLoading(true);
+    getLink(undefined, {
+      onSuccess: (response) => {
+        createWindow(response);
       },
-      {
-        onSuccess: (response) => {
-          console.log(response);
-          updateSteamId(
-            {
-              steamId: response.steamId,
-            },
-            {
-              onSuccess: () => {
-                setUser({ ...(user as User), steamId: response.steamId });
-                refetch();
-              },
-            }
-          );
-        },
-      }
-    );
+
+      onError: () => {
+        setIsLoading(false);
+      },
+    });
   };
+
+  useEffect(() => {
+    if (!isClosed) return;
+    refetch();
+    getSteamId(undefined, {
+      onSuccess: (response) => {
+        setUser({ ...(user as User), steamId: response.steamId });
+      },
+    });
+    setIsLoading(false);
+  }, [isClosed]);
 
   return (
     <AppLayout>
@@ -49,24 +49,26 @@ const Library = () => {
         <div className="text-4xl text-deepNavy-500 font-bold pb-12">
           Library
         </div>
-        {user?.steamId ? (
-          <div className="h-full flex flex-wrap gap-4 overflow-auto">
-            {games?.map((game) => (
-              <GameCard game={game} />
-            ))}
-          </div>
+        {!isLoading ? (
+          <>
+            {user?.steamId ? (
+              <div className="h-full flex flex-wrap gap-4 overflow-auto">
+                {games?.map((game) => (
+                  <GameCard game={game} />
+                ))}
+              </div>
+            ) : (
+              <div className="flex items-center gap-5 justify-center h-1/2 flex-col">
+                To get games from your profile steam you need to connect
+                <div className="w-1/2"></div>
+                <SteamButton onClick={handleClickSignIn} />
+              </div>
+            )}
+          </>
         ) : (
-          <div className="flex items-center gap-5 justify-center h-1/2 flex-col">
-            To get your games you need to provide url or username from steam
-            <div className="w-1/2">
-              <Input
-                onChange={(t) => setSteamId(t)}
-                value={steamId}
-                placeholder="Provide url or steam name"
-              />
-            </div>
-            <Button onClick={handleSaveSteamId}>Save</Button>
-          </div>
+          <>
+            <LoadingAnimation width={300} height={300} />
+          </>
         )}
       </div>
     </AppLayout>
