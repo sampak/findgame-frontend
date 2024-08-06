@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 const useWindow = () => {
   const [currentWindow, setCurrentWindow] = useState<Window | null>(null);
-  const [timer, setTimer] = useState<NodeJS.Timer | null>(null);
+  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
   const [isClosed, setIsClosed] = useState(false);
 
   const createWindow = (link: string) => {
