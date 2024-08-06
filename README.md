@@ -1,5 +1,5 @@
 # FindGame is an app that allows you to check which games you have on Steam and find new players with a similar game library. Additionally, our app can suggest what you might want to play at any given moment.
-
+https://trello.com/b/VOrvaDpT/findapp
 ###DEMO ACCOUNT###
 
 account has a connected steam profile
