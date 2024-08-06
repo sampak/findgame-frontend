@@ -23,7 +23,6 @@ const VerifySteam = () => {
       {
         onSuccess: (response) => {
           if (response.token.length) {
-            console.log('przypisuje token');
             setToken(response.token);
           }
           window.close();
@@ -35,7 +34,11 @@ const VerifySteam = () => {
   };
 
   useEffect(() => {
-    handleCode();
+    const t = setTimeout(() => {
+      handleCode();
+    }, 100);
+
+    return () => clearTimeout(t);
   }, []);
 
   return <LoadingScreen />;

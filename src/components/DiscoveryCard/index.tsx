@@ -6,6 +6,8 @@ import classNames from 'classnames';
 import useLang from '@hooks/useLang';
 import friendService from '@api/friendService';
 import { useState } from 'react';
+import { getApiError } from '@utils/getApiError';
+import { NotiType, sendNoti } from '@utils/sendNoti';
 
 const DiscoveryCard: FC<Props> = ({ user }) => {
   const { getLang } = useLang('discoveryCard');
@@ -33,6 +35,10 @@ const DiscoveryCard: FC<Props> = ({ user }) => {
         onSuccess: () => {
           console.log('Friend request was send');
           setInviteSend(true);
+        },
+
+        onError: (err) => {
+          sendNoti(getApiError(err, getLang), NotiType.ERROR);
         },
       }
     );

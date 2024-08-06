@@ -1,7 +1,4 @@
-export const getApiError = (
-  err,
-  getLang
-) => {
+export const getApiError = (err, getLang) => {
   if (
     err &&
     err.response &&
@@ -9,7 +6,7 @@ export const getApiError = (
     !!err.response.data.message.length &&
     err.response.data.message !== 'Forbidden resource'
   ) {
-    return getLang(`errors.${err.response.data.message}`);
+    return getLang(`errors.${err.response.data.errorCode}`);
   }
 
   if (err.response.statusText === 'Forbidden') {

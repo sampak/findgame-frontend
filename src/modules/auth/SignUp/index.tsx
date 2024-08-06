@@ -12,6 +12,8 @@ import useLang from '@hooks/useLang';
 import useWindow from '@hooks/useWindow';
 import steamService from '@api/steamService';
 import LoadingAnimation from '@components/LoadingAnimation';
+import { NotiType, sendNoti } from '@utils/sendNoti';
+import { getApiError } from '@utils/getApiError';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -65,6 +67,9 @@ const SignUp = () => {
           setToken(data.token);
           navigate('/');
         },
+        onError: (err) => {
+          sendNoti(getApiError(err, getLang), NotiType.ERROR);
+        },
       }
     );
   };
@@ -74,6 +79,9 @@ const SignUp = () => {
       onSuccess: (response) => {
         setIsLoading(true);
         createWindow(response);
+      },
+      onError: () => {
+        sendNoti('Something went wrong', NotiType.ERROR);
       },
     });
   };

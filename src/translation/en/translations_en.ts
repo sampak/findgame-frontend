@@ -7,7 +7,8 @@ export const TRANSLATIONS_EN = {
     orText: 'or',
 
     errors: {
-      NOT_FOUND: 'credentials invalid',
+      NOT_FOUND: 'Credentials invalid',
+      UNEXPECTED_ERROR: 'Something was wrong, try again later',
     },
   },
   signUp: {
@@ -21,6 +22,8 @@ export const TRANSLATIONS_EN = {
 
     errors: {
       USER_EXISTS: 'A user with this login or email already exists',
+      WRONG_EMAIL: 'Provided email is not correct',
+      UNEXPECTED_ERROR: 'Something was wrong, try again later',
     },
   },
 
@@ -36,5 +39,18 @@ export const TRANSLATIONS_EN = {
     score: 'Similarity score',
     add: 'Add to Friends',
     sended: 'Invitation sended',
+
+    errors: {
+      FRIEND_NOT_EXIST: 'User not exist',
+      FRIEND_EXIST: 'User is a your friend or invitation is pending',
+      UNEXPECTED_ERROR: 'Something was wrong, try again later',
+    },
+  },
+
+  friendCard: {
+    errors: {
+      FRIEND_NOT_EXIST: 'Invitation is not exist',
+      UNEXPECTED_ERROR: 'Something was wrong, try again later',
+    },
   },
 };

@@ -13,6 +13,8 @@ import { getApiError } from '@utils/getApiError';
 import steamService from '@api/steamService';
 import useWindow from '@hooks/useWindow';
 import LoadingAnimation from '@components/LoadingAnimation';
+import { toast } from 'react-toastify';
+import { NotiType, sendNoti } from '@utils/sendNoti';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -51,7 +53,7 @@ const SignIn = () => {
         },
 
         onError: (err) => {
-          console.log(getApiError(err, getLang));
+          sendNoti(getApiError(err, getLang), NotiType.ERROR);
         },
       }
     );
@@ -62,6 +64,9 @@ const SignIn = () => {
       onSuccess: (response) => {
         setIsLoading(true);
         createWindow(response);
+      },
+      onError: () => {
+        sendNoti('Something went wrong', NotiType.ERROR);
       },
     });
   };

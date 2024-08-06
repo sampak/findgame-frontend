@@ -8,6 +8,9 @@ import friendService from '@api/friendService';
 import { useContext } from 'react';
 import FriendsContext from '@contexts/FriendsContext';
 import { FRIEND_ACTIONS } from '@reducers/friendsReducer';
+import { NotiType, sendNoti } from '@utils/sendNoti';
+import { getApiError } from '@utils/getApiError';
+import useLang from '@hooks/useLang';
 
 // hover:bg-deepNavy-100
 
@@ -15,6 +18,8 @@ const FriendCard = ({ friend }) => {
   const { mutate: accept } = friendService.useAccept();
   const { mutate: decline } = friendService.useDeclineOrRemove();
   const { dispatch } = useContext(FriendsContext);
+
+  const { getLang } = useLang('friendCard');
 
   const handleAccept = () => {
     accept(
@@ -29,6 +34,9 @@ const FriendCard = ({ friend }) => {
               id: friend.id,
             },
           });
+        },
+        onError: (err) => {
+          sendNoti(getApiError(err, getLang), NotiType.ERROR);
         },
       }
     );
@@ -47,6 +55,10 @@ const FriendCard = ({ friend }) => {
               id: friend.id,
             },
           });
+        },
+
+        onError: (err) => {
+          sendNoti(getApiError(err, getLang), NotiType.ERROR);
         },
       }
     );
