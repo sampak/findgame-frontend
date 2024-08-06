@@ -13,7 +13,6 @@ import { getApiError } from '@utils/getApiError';
 import steamService from '@api/steamService';
 import useWindow from '@hooks/useWindow';
 import LoadingAnimation from '@components/LoadingAnimation';
-import { toast } from 'react-toastify';
 import { NotiType, sendNoti } from '@utils/sendNoti';
 
 const SignIn = () => {
