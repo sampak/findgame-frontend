@@ -8,6 +8,7 @@ import { friendsReducer } from '@reducers/friendsReducer';
 import FriendsContext from '@contexts/FriendsContext';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import SocketContext from '@contexts/socket';
 
 const client = new QueryClient({
   defaultOptions: {
@@ -20,16 +21,24 @@ const client = new QueryClient({
 function App() {
   const [state, dispatch] = useReducer(friendsReducer, { friends: [] });
   const [user, setUser] = useState<null | User>(null);
+  const [socket, setSocket] = useState<any>(null);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
-      <FriendsContext.Provider value={{ friends: state.friends, dispatch }}>
-        <QueryClientProvider client={client}>
-          <RouterProvider router={router} />
-          <ToastContainer />
-        </QueryClientProvider>
-      </FriendsContext.Provider>
-    </UserContext.Provider>
+    <SocketContext.Provider
+      value={{
+        socket,
+        setSocket,
+      }}
+    >
+      <UserContext.Provider value={{ user, setUser }}>
+        <FriendsContext.Provider value={{ friends: state.friends, dispatch }}>
+          <QueryClientProvider client={client}>
+            <RouterProvider router={router} />
+            <ToastContainer />
+          </QueryClientProvider>
+        </FriendsContext.Provider>
+      </UserContext.Provider>
+    </SocketContext.Provider>
   );
 }
 

@@ -6,6 +6,7 @@ import UserContext from '@contexts/UserContext';
 import { User } from '@dto/base/User';
 import { getToken, removeToken } from '@api/user';
 import LoadingScreen from '@components/LoadingScreen';
+import useSocket from '@hooks/useSocket';
 
 const ProtectedRoute: FC<Props> = ({ children }) => {
   const access_token = getToken();
@@ -13,6 +14,7 @@ const ProtectedRoute: FC<Props> = ({ children }) => {
   const { data, refetch, isError, isFetching } = userService.useGetMe();
   const { setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
+  const { connect, disconnect } = useSocket();
 
   useEffect(() => {
     if (!access_token) {
@@ -32,6 +34,7 @@ const ProtectedRoute: FC<Props> = ({ children }) => {
       //   }
 
       console.log('assing user');
+      connect(access_token);
       setUser(user);
       setLoading(false);
     }
