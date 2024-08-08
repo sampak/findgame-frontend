@@ -5,6 +5,8 @@ import { useContext, useEffect } from 'react';
 import { FRIEND_ACTIONS } from '@reducers/friendsReducer';
 import FriendsContext from '@contexts/FriendsContext';
 import useSocket from '@hooks/useSocket';
+import { FriendEvents } from '@dto/socket/FriendEvents';
+import { IFriend } from '@dto/base/Friend';
 
 export const FriendList = () => {
   const { data } = friendService.useGetFriends();
@@ -21,25 +23,52 @@ export const FriendList = () => {
     setFriends(data);
   }, [data]);
 
-  const handleMessage = (msg) => {
+  const handleSocketInvitation = (msg: IFriend) => {
+    dispatch({ type: FRIEND_ACTIONS.ADD_TO_LIST, payload: msg });
+  };
+
+  const handleSocketChangeStatus = (msg: {
+    id: string;
+    status: FriendStatus;
+  }) => {
+    dispatch({ type: FRIEND_ACTIONS.CHANGE_STATUS, payload: msg });
+  };
+
+  const handleRemoveFriend = (msg: { id: string }) => {
+    dispatch({ type: FRIEND_ACTIONS.REMOVE, payload: msg });
+  };
+
+  const handleSocketOnlineList = (msg) => {
     console.log(msg);
   };
 
+  const handleSocketIsOnline = (msg) => {
+    console.log('Online: ' + msg);
+  };
+  const handleSocketIsOffline = (msg) => {
+    console.log('offline' + msg);
+  };
+
   useEffect(() => {
-    socket?.on('read_message', handleMessage);
+    socket?.on(FriendEvents.FRIEND_INVITATION, handleSocketInvitation);
+    socket?.on(FriendEvents.FRIEND_STATUS_CHANGE, handleSocketChangeStatus);
+    socket?.on(FriendEvents.FRIEND_REMOVE, handleRemoveFriend);
+    socket?.on(FriendEvents.FRIEND_ONLINE_LIST, handleSocketOnlineList);
+    socket?.on(FriendEvents.FRIEND_OFFLINE, handleSocketIsOffline);
+    socket?.on(FriendEvents.FRIEND_ONLINE, handleSocketIsOnline);
 
     return () => {
-      socket?.off('read_message', handleMessage);
+      socket?.off(FriendEvents.FRIEND_INVITATION, handleSocketInvitation);
+      socket?.off(FriendEvents.FRIEND_STATUS_CHANGE, handleSocketChangeStatus);
+      socket?.off(FriendEvents.FRIEND_REMOVE, handleRemoveFriend);
+      socket?.off(FriendEvents.FRIEND_ONLINE_LIST, handleSocketOnlineList);
+      socket?.off(FriendEvents.FRIEND_OFFLINE, handleSocketIsOffline);
+      socket?.off(FriendEvents.FRIEND_ONLINE, handleSocketIsOnline);
     };
   }, [socket]);
 
-  const send = () => {
-    socket.emit('send_message', 'Test');
-  };
-
   return (
     <div className="flex flex-col h-full">
-      <div onClick={send}>Test</div>
       <div className="text-2xl text-deepNavy-500 font-bold pb-6 pt-6 pl-4">
         Friends
       </div>

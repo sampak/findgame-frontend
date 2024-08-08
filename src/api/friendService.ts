@@ -18,7 +18,7 @@ const useGetFriends = () => {
   return useQuery(queryKeys.getFriends, () => getFriends());
 };
 
-const sendInvite = async (payload: IInviteFriendRequest): Promise<void> => {
+const sendInvite = async (payload: IInviteFriendRequest): Promise<IFriend> => {
   const response = await axiosInstance.post('/friend', payload);
   return response.data ?? [];
 };

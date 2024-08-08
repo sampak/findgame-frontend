@@ -5,14 +5,17 @@ import styles from './styles.module.scss';
 import classNames from 'classnames';
 import useLang from '@hooks/useLang';
 import friendService from '@api/friendService';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { getApiError } from '@utils/getApiError';
 import { NotiType, sendNoti } from '@utils/sendNoti';
+import FriendsContext from '@contexts/FriendsContext';
+import { FRIEND_ACTIONS } from '@reducers/friendsReducer';
 
 const DiscoveryCard: FC<Props> = ({ user }) => {
   const { getLang } = useLang('discoveryCard');
   const [inviteSend, setInviteSend] = useState(false);
   const { mutate: sendInvite } = friendService.useSendInvite();
+  const { dispatch } = useContext(FriendsContext);
 
   const getClass = () => {
     const score = Math.floor(user.score);
@@ -32,8 +35,8 @@ const DiscoveryCard: FC<Props> = ({ user }) => {
         id: user.id,
       },
       {
-        onSuccess: () => {
-          console.log('Friend request was send');
+        onSuccess: (resp) => {
+          dispatch({ type: FRIEND_ACTIONS.ADD_TO_LIST, payload: resp });
           setInviteSend(true);
         },
 

@@ -14,7 +14,7 @@ const ProtectedRoute: FC<Props> = ({ children }) => {
   const { data, refetch, isError, isFetching } = userService.useGetMe();
   const { setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
-  const { connect, disconnect } = useSocket();
+  const { connect } = useSocket();
 
   useEffect(() => {
     if (!access_token) {

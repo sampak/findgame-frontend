@@ -6,4 +6,5 @@ export interface IFriend {
   user: User;
   status: FriendStatus;
   myInvitation: boolean;
+  isOnline?: boolean;
 }
