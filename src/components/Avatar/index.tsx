@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { FC, Props } from './typings';
 
-const Avatar: FC<Props> = ({ user, className }) => {
+const Avatar: FC<Props> = ({ user, className, isOnline = false }) => {
   const getInitials = (name: string) => {
     try {
       const initials = name
@@ -17,7 +17,7 @@ const Avatar: FC<Props> = ({ user, className }) => {
   return (
     <div
       className={classNames(
-        'relative inline-flex items-center justify-center w-10 h-10 overflow-hidden rounded-full bg-deepNavy-400',
+        'relative inline-flex items-center justify-center w-10 h-10 rounded-full bg-deepNavy-400',
         className
       )}
     >
@@ -26,7 +26,11 @@ const Avatar: FC<Props> = ({ user, className }) => {
           {getInitials(user?.login ?? '')}
         </span>
       )}
-      {user?.avatar && <img src={user.avatar} />}
+
+      {user?.avatar && <img src={user.avatar} className="rounded-full" />}
+      {isOnline && (
+        <div className="bg-green-600 w-[12px] h-[12px] absolute right-[-1px] bottom-[-2px] rounded-full"></div>
+      )}
     </div>
   );
 };

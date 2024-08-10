@@ -9,7 +9,7 @@ import { FriendEvents } from '@dto/socket/FriendEvents';
 import { IFriend } from '@dto/base/Friend';
 
 export const FriendList = () => {
-  const { data } = friendService.useGetFriends();
+  const { data, isFetched } = friendService.useGetFriends();
 
   const { friends, dispatch } = useContext(FriendsContext);
 
@@ -39,14 +39,26 @@ export const FriendList = () => {
   };
 
   const handleSocketOnlineList = (msg) => {
-    console.log(msg);
+    dispatch({ type: FRIEND_ACTIONS.LOAD_ONLINE_STATUS, payload: msg });
   };
 
   const handleSocketIsOnline = (msg) => {
-    console.log('Online: ' + msg);
+    dispatch({
+      type: FRIEND_ACTIONS.CHANGE_ONLINE_STATUS,
+      payload: {
+        id: msg,
+        isOnline: true,
+      },
+    });
   };
   const handleSocketIsOffline = (msg) => {
-    console.log('offline' + msg);
+    dispatch({
+      type: FRIEND_ACTIONS.CHANGE_ONLINE_STATUS,
+      payload: {
+        id: msg,
+        isOnline: true,
+      },
+    });
   };
 
   useEffect(() => {
@@ -66,6 +78,11 @@ export const FriendList = () => {
       socket?.off(FriendEvents.FRIEND_ONLINE, handleSocketIsOnline);
     };
   }, [socket]);
+
+  useEffect(() => {
+    if (!isFetched) return;
+    socket.emit(FriendEvents.FRIEND_ONLINE_LIST);
+  }, [isFetched]);
 
   return (
     <div className="flex flex-col h-full">

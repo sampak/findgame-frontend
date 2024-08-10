@@ -7,8 +7,22 @@ export enum FRIEND_ACTIONS {
   ACCEPT = 'ACCEPT',
   REMOVE = 'REMOVE',
   CHANGE_STATUS = 'CHANGE_STATUS',
-  CHANGE_ONLINE_STATUS = 'CHANGE_ONLINE_STATUS', // TODO
+  CHANGE_ONLINE_STATUS = 'CHANGE_ONLINE_STATUS',
+  LOAD_ONLINE_STATUS = 'LOAD_ONLINE_STATUS',
 }
+
+type ChangeOnlineStatus = {
+  type: FRIEND_ACTIONS.CHANGE_ONLINE_STATUS;
+  payload: {
+    id: string;
+    isOnline: boolean;
+  };
+};
+
+type SetOnlineStatus = {
+  type: FRIEND_ACTIONS.LOAD_ONLINE_STATUS;
+  payload: string[];
+};
 
 type SetFriendsAction = {
   type: FRIEND_ACTIONS.SET_FRIENDS;
@@ -51,7 +65,9 @@ export type FriendsAction =
   | AcceptFriendsAction
   | RemoveFriendsAction
   | changeFriendStatus
-  | AddToList;
+  | AddToList
+  | ChangeOnlineStatus
+  | SetOnlineStatus;
 
 export const friendsReducer = (state: friendState, action: FriendsAction) => {
   switch (action.type) {
@@ -91,6 +107,27 @@ export const friendsReducer = (state: friendState, action: FriendsAction) => {
             : friend
         ),
       };
+    case FRIEND_ACTIONS.CHANGE_ONLINE_STATUS:
+      return {
+        ...state,
+        friends: state.friends.map((friend) =>
+          friend.user.id === action.payload.id
+            ? { ...friend, isOnline: action.payload.isOnline }
+            : friend
+        ),
+      };
+    case FRIEND_ACTIONS.LOAD_ONLINE_STATUS:
+      return {
+        ...state,
+        friends: state.friends?.map((friend) => {
+          const isExist = action.payload.find((id) => id === friend.user.id);
+          if (isExist) {
+            friend.isOnline = true;
+          }
+          return friend;
+        }),
+      };
+
     default:
       throw new Error(`Unknown action type`);
   }

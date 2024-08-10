@@ -7,7 +7,7 @@ const useSocket = () => {
 
   const connect = (token: string) => {
     if (socket) return;
-    const sock = io(`ws://127.0.0.1:5000`, {
+    const sock = io(import.meta.env.VITE_SOCKET ?? `ws://127.0.0.1:5000`, {
       query: { token: token },
     });
 

@@ -5,4 +5,5 @@ export type { FC } from 'react';
 export interface Props {
   user: User;
   className?: string;
+  isOnline?: boolean;
 }

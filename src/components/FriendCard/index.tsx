@@ -68,7 +68,7 @@ const FriendCard = ({ friend }) => {
     <div className="border-b ">
       <div className="w-full h-[64px] flex justify-between rounded-md px-2">
         <div className="flex gap-5 items-center">
-          <Avatar user={friend.user} />
+          <Avatar user={friend.user} isOnline={friend.isOnline} />
           <div className="font-semibold">{friend.user.login}</div>
         </div>
         <div className="flex items-center">
