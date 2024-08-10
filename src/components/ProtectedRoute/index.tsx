@@ -29,11 +29,6 @@ const ProtectedRoute: FC<Props> = ({ children }) => {
     const user = data as User;
 
     if (user?.id) {
-      //   if (user.uiConfiguration?.showOnbording) {
-      //     navigate('/onbording/method');
-      //   }
-
-      console.log('assing user');
       connect(access_token);
       setUser(user);
       setLoading(false);
@@ -43,15 +38,11 @@ const ProtectedRoute: FC<Props> = ({ children }) => {
   useEffect(() => {
     if (isError) {
       removeToken();
+      navigate('/auth/sign-in');
     }
   }, [isError]);
 
   const showLoadingScreen = loading || isFetching;
-  const showErrorScreen = isError;
-
-  if (showErrorScreen) {
-    return <>Error</>;
-  }
 
   if (showLoadingScreen) {
     return <LoadingScreen />;
