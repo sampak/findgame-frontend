@@ -3,7 +3,7 @@ import { IGame } from '@dto/base/Game';
 export type { FC } from 'react';
 
 export interface Props {
-  game: IGame;
-  onClick?: () => void;
-  isSelected?: boolean;
+  sharedGames: IGame[];
+  toggle: () => void;
+  onAccept: (games: IGame[]) => void;
 }

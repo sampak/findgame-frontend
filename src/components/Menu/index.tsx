@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { FC, Props } from './typings';
 import CompassIcon from '@assets/icons/compass.svg?react';
 import DiscoveryIcon from '@assets/icons/discovery.svg?react';
+import PokerIcon from '@assets/icons/poker.svg?react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const Menu: FC<Props> = () => {
@@ -40,6 +41,19 @@ const Menu: FC<Props> = () => {
           <DiscoveryIcon
             className={classNames('group-hover:fill-white', {
               'fill-white': isActive('/discovery'),
+            })}
+          />
+        </div>
+        <div
+          onClick={() => navigate('/wheel/friends')}
+          className={classNames(
+            ' w-[48px] h-[48px] rounded-xl flex items-center justify-center cursor-pointer group hover:bg-deepNavy-500',
+            { 'bg-deepNavy-500': isActive('/wheel') }
+          )}
+        >
+          <PokerIcon
+            className={classNames('group-hover:fill-white', {
+              'fill-white': isActive('/wheel'),
             })}
           />
         </div>
