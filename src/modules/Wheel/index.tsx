@@ -1,19 +1,15 @@
-import userService from '@api/userService';
 import AppLayout from '@components/AppLayout';
-import Button from '@components/Button';
 import { IFriend } from '@dto/base/Friend';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import SelectFriends from './SelectFriends';
 import { useNavigate, useParams } from 'react-router-dom';
 import { WheelSteps } from './typings';
-import SelectGames from './SelectGames';
-import { IGame } from '@dto/base/Game';
 import wheelService from '@api/wheelService';
 import Room from './Room';
 
 const Wheel = () => {
   const navigate = useNavigate();
-  const { step, roomId } = useParams();
+  const { step } = useParams();
   const [selectedFriends, setSelectedFriends] = useState<IFriend[]>([]);
   const { mutate: createRoom } = wheelService.useCreateRoom();
 
@@ -21,7 +17,7 @@ const Wheel = () => {
     if (step === WheelSteps.FRIENDS) {
       createRoom(
         {
-          users: selectedFriends.map((f) => f.id),
+          users: selectedFriends.map((f) => f.user.id),
         },
         {
           onSuccess: (response) => {
@@ -35,9 +31,21 @@ const Wheel = () => {
   return (
     <AppLayout>
       <div className="flex h-full flex-col">
-        <div className="text-4xl text-deepNavy-500 font-bold pb-12">
-          {step === WheelSteps.FRIENDS && 'Select friends'}
-          {step === WheelSteps.ROOM && 'Room'}
+        <div className=" text-deepNavy-500 pb-12">
+          {step === WheelSteps.FRIENDS && (
+            <div className="text-4xl font-bold">Select friends</div>
+          )}
+          {step === WheelSteps.ROOM && (
+            <div className="flex items-center justify-between">
+              <div className="text-4xl font-bold">Room</div>
+              <div className="flex items-center gap-2">
+                <div className="font-bold">Join Link: </div>
+                <div className="text-md w-fit bg-white border rounded-xl p-2.5">
+                  {location.href}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
         {step === WheelSteps.FRIENDS && (
           <SelectFriends

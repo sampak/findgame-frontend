@@ -10,4 +10,5 @@ export interface Props {
   name?: string;
   onBlur?: () => void;
   onFocus?: () => void;
+  isDisabled?: boolean;
 }

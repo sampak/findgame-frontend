@@ -8,13 +8,20 @@ import { useEffect, useState } from 'react';
 import { IGame } from '@dto/base/Game';
 import { FC, Props } from './typings';
 
-const AddGamesModal: FC<Props> = ({ sharedGames, toggle, onAccept }) => {
+const AddGamesModal: FC<Props> = ({
+  sharedGames,
+  addedGames,
+  toggle,
+  onAccept,
+}) => {
   const { data: games } = userService.useGetMyGames();
 
   const [searchValue, setSearchValue] = useState('');
   const [searchedGames, setSearchedGames] = useState<IGame[]>([]);
   const [onlyShared, setOnlyShared] = useState(false);
   const [selectedGames, setSelectedGames] = useState<IGame[]>([]);
+
+  console.log(onlyShared);
 
   const handleClickGame = (game: IGame) => {
     const isExist = selectedGames.find((f) => f.id === game.id);
@@ -36,7 +43,9 @@ const AddGamesModal: FC<Props> = ({ sharedGames, toggle, onAccept }) => {
           -1
       );
     }
-    setSearchedGames(allGames);
+    setSearchedGames(
+      allGames?.filter((g) => !addedGames.find((gg) => gg.id === g.id))
+    );
   }, [games, searchValue, onlyShared]);
 
   return (
