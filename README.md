@@ -13,6 +13,14 @@ This demo account has a connected Steam profile:
 
 ## Features
 
+- **Add Friends:** Easily add new friends to your list based on shared games and interests.
+- **Discover New Players:** Find and connect with new players who have similar game libraries, enhancing your multiplayer experience.
+- **Game Roulette:** Can't decide what to play? Use the "Draw a Game" feature to randomly select a game from your shared library.
+- **Browse Steam Library:** View and explore your entire Steam games library directly within the app.
+- **Profile Update:** The app automatically updates your profile every 15 minutes to ensure your information is always current.
+- **Daily Library Update:** Your game library is refreshed daily at 11:00 PM to include any new additions or changes.
+
+
 ### Simple Authentication
 
 Easily log in using your Steam credentials to access your personalized game library and social features.
