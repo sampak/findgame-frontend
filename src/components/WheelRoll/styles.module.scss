@@ -1,0 +1,8 @@
+.rotate3d {
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+
+.rotate3dActive {
+  transform: rotateY(360deg);
+}

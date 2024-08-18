@@ -81,7 +81,7 @@ export const FriendList = () => {
 
   useEffect(() => {
     if (!isFetched) return;
-    socket.emit(FriendEvents.FRIEND_ONLINE_LIST);
+    socket?.emit(FriendEvents.FRIEND_ONLINE_LIST);
   }, [isFetched]);
 
   return (

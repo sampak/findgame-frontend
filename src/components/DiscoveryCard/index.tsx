@@ -36,6 +36,7 @@ const DiscoveryCard: FC<Props> = ({ user }) => {
       },
       {
         onSuccess: (resp) => {
+          resp.myInvitation = true;
           dispatch({ type: FRIEND_ACTIONS.ADD_TO_LIST, payload: resp });
           setInviteSend(true);
         },

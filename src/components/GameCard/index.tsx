@@ -1,15 +1,23 @@
 import { useState } from 'react';
 import { FC, Props } from './typings';
 
-const GameCard: FC<Props> = ({ game }) => {
+const GameCard: FC<Props> = ({ game, onClick, isSelected = false }) => {
   const [loadFailed, setLoadFailed] = useState(false);
 
   const handleClickGame = () => {
+    if (onClick) {
+      onClick();
+      return;
+    }
     window.location.href = `steam://run/${game.appId}`;
   };
 
   return (
-    <div className="cursor-pointer">
+    <div
+      className={`h-fit w-fit cursor-pointer relative border-2 ${
+        isSelected && 'border-lightSky-700'
+      }`}
+    >
       {!loadFailed && (
         <img
           onClick={handleClickGame}
@@ -20,7 +28,10 @@ const GameCard: FC<Props> = ({ game }) => {
       )}
 
       {loadFailed && (
-        <div className="w-[200px] h-full bg-gray-500 flex items-center justify-center">
+        <div
+          onClick={handleClickGame}
+          className="w-[200px] min-h-[94px] h-full bg-gray-500 flex items-center justify-center"
+        >
           <div className="text-white text-md">{game.name}</div>
         </div>
       )}

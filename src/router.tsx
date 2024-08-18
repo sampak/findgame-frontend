@@ -5,6 +5,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Library from './modules/Library';
 import Discovery from './modules/Discovery';
 import VerifySteam from './modules/VerifySteam';
+import Wheel from './modules/Wheel';
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,14 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <Discovery />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/wheel/:step/:roomId?',
+    element: (
+      <ProtectedRoute>
+        <Wheel />
       </ProtectedRoute>
     ),
   },
