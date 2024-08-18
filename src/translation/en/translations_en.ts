@@ -53,4 +53,16 @@ export const TRANSLATIONS_EN = {
       UNEXPECTED_ERROR: 'Something was wrong, try again later',
     },
   },
+
+  wheel: {
+    selectFriends: 'Select friends',
+    room: 'Room',
+    link: 'Join Link: ',
+    games: 'Games',
+    addGames: 'Add games',
+    empty: 'List is Empty',
+    emptySubText: 'click `Add games` button to add games to list',
+    spectators: 'Spectators',
+    start: 'Start wheel',
+  },
 };

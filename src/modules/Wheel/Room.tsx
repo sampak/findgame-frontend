@@ -9,11 +9,13 @@ import UserContext from '@contexts/UserContext';
 import { IGame } from '@dto/base/Game';
 import { IWheelRoom } from '@dto/base/WheelRoom';
 import { WheelEvents } from '@dto/socket/WheelEvents';
+import useLang from '@hooks/useLang';
 import useSocket from '@hooks/useSocket';
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const Room = () => {
+  const { getLang } = useLang('wheel');
   const { roomId } = useParams();
   const { user } = useContext(UserContext);
   const { data: roomData, isLoading } = wheelService.useGet(roomId!);
@@ -109,7 +111,7 @@ const Room = () => {
                 (room?.games?.length ?? 0) >= 100
               }
             >
-              Start Wheel
+              {getLang('start')}
             </Button>
           </div>
         )}
@@ -117,15 +119,15 @@ const Room = () => {
           <div className="text-2xl font-bold">Games</div>
           <div className="">
             <Button onClick={() => setShowAddGame(!showAddGame)}>
-              Add games
+              {getLang('addGames')}
             </Button>
           </div>
         </div>
         <div className="w-full flex flex-wrap gap-2 py-4">
           {!room?.games?.length && (
             <div className="w-full  text-center ">
-              <div className="text-md font-bold">List is Empty</div>
-              <div>click `Add games` button to add games to list</div>
+              <div className="text-md font-bold">{getLang('empty')}</div>
+              <div>{getLang('emptySubText')}</div>
             </div>
           )}
           {room?.games.map((game) => (
@@ -138,7 +140,7 @@ const Room = () => {
         </div>
       </div>
       <div className="">
-        <div className="text-2xl font-bold">Spectators</div>
+        <div className="text-2xl font-bold">{getLang('spectators')}</div>
         <div className="flex gap-3 flex-wrap pt-5">
           {room?.spectators.map((spectator) => (
             <div className="bg-white shadow-md flex items-center justify-center gap-2 px-5 py-3 rounded-lg">

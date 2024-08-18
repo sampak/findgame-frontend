@@ -6,10 +6,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { WheelSteps } from './typings';
 import wheelService from '@api/wheelService';
 import Room from './Room';
+import useLang from '@hooks/useLang';
 
 const Wheel = () => {
   const navigate = useNavigate();
   const { step } = useParams();
+  const { getLang } = useLang('wheel');
   const [selectedFriends, setSelectedFriends] = useState<IFriend[]>([]);
   const { mutate: createRoom } = wheelService.useCreateRoom();
 
@@ -33,13 +35,13 @@ const Wheel = () => {
       <div className="flex h-full flex-col">
         <div className=" text-deepNavy-500 pb-12">
           {step === WheelSteps.FRIENDS && (
-            <div className="text-4xl font-bold">Select friends</div>
+            <div className="text-4xl font-bold">{getLang('selectFriends')}</div>
           )}
           {step === WheelSteps.ROOM && (
             <div className="flex items-center justify-between">
-              <div className="text-4xl font-bold">Room</div>
+              <div className="text-4xl font-bold">{getLang('room')}</div>
               <div className="flex items-center gap-2">
-                <div className="font-bold">Join Link: </div>
+                <div className="font-bold">{getLang('link')}</div>
                 <div className="text-md w-fit bg-white border rounded-xl p-2.5">
                   {location.href}
                 </div>
